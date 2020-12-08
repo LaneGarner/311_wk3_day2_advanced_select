@@ -39,12 +39,34 @@ GROUP BY state;
 2. Find the most popular area code in the `usersContact` table. 
   * Hint: SUBSTR, GROUP BY
 
+Just phone 1:
+
 SELECT 
 	SUBSTRING(phone1, 1, 3) AS areaCode,
 	COUNT(*) total
 FROM
 	usersContact
 GROUP BY areaCode
+ORDER BY total DESC;
+
+
+Both columns:
+
+SELECT
+	areaCode,
+	COUNT(*) total
+FROM
+(
+SELECT 
+	SUBSTRING(phone1, 1, 3) AS areaCode
+FROM usersContact
+UNION ALL
+SELECT 
+	SUBSTRING(phone2, 1, 3) AS areaCode
+FROM usersContact
+) anyVariableName
+GROUP BY 
+	areaCode
 ORDER BY total DESC;
 
 
